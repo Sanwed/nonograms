@@ -1,0 +1,42 @@
+# Системные файлы
+.DS_Store
+Thumbs.db
+
+# Файлы IDE и редакторов
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Зависимости
+node_modules/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Логи и базы данных
+*.log
+*.sqlite
+*.db
+
+# Файлы сборки
+dist/
+build/
+*.egg-info/
+
+# Файлы окружения
+.env
+.env.local
+.env.*.local
+
+# Кэш
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Временные файлы
+tmp/
+temp/

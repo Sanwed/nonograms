@@ -1,51 +1,56 @@
-import { addThemeButton, clearBody, getArrayColumns, getLinesLength } from './utils.js';
+import { addSoundButton, addThemeButton, clearBody, getArrayColumns, getLinesLength } from './utils.js';
 import { showMenuScreen, showWinScreen } from './screens.js';
+import { startAudio } from './utils.js';
+
+export const audio = new Audio();
+
 
 const initItems = (name) => {
   const body = document.body;
-  
+
   const gameScreen = document.createElement('div');
   gameScreen.setAttribute('id', 'game-screen');
   gameScreen.classList.add('screen');
   body.append(gameScreen);
-  
+
   addThemeButton(gameScreen);
-  
+  addSoundButton(gameScreen, audio);
+
   const heading = document.createElement('h1');
   heading.textContent = name;
   gameScreen.append(heading);
-  
+
   const timer = document.createElement('p');
   timer.setAttribute('id', 'timer');
   timer.textContent = ':';
   gameScreen.append(timer);
-  
+
   const minutesContainer = document.createElement('span');
   minutesContainer.setAttribute('id', 'timer-minutes');
   minutesContainer.textContent = '00';
   timer.prepend(minutesContainer);
-  
+
   const secondsContainer = document.createElement('span');
   secondsContainer.setAttribute('id', 'timer-seconds');
   secondsContainer.textContent = '00';
   timer.append(secondsContainer);
-  
+
   const fieldContainer = document.createElement('div');
   fieldContainer.classList.add('game');
   gameScreen.append(fieldContainer);
-  
+
   const columnNums = document.createElement('table');
   columnNums.setAttribute('id', 'column-nums');
   fieldContainer.append(columnNums);
-  
+
   const rowNums = document.createElement('table');
   rowNums.setAttribute('id', 'row-nums');
   fieldContainer.append(rowNums);
-  
+
   const field = document.createElement('table');
   field.setAttribute('id', 'field');
   fieldContainer.append(field);
-  
+
   return {
     columnNums,
     rowNums,
@@ -79,10 +84,10 @@ const updateMatrix = (matrix, cell) => {
 const initTimer = () => {
   const minutesContainer = document.querySelector('#timer-minutes');
   const secondsContainer = document.querySelector('#timer-seconds');
-  
+
   let minutes = 0;
   let seconds = 0;
-  
+
   setInterval(() => {
     seconds++;
     if (seconds > 9) {
@@ -90,7 +95,7 @@ const initTimer = () => {
     } else {
       secondsContainer.textContent = `0${seconds}`;
     }
-    
+
     if (seconds >= 59) {
       minutes++;
       if (seconds > 9) {
@@ -110,23 +115,12 @@ const initField = (field, image, load = null) => {
   } else {
     resultMatrix = createMatrix(image.matrix.length);
   }
-  
-  const startAudio = (src, time = 500) => {
-    const audio = new Audio(src);
-    audio.volume = 0.5;
-    
-    audio.play().then(() => {
-      setTimeout(() => {
-        audio.pause();
-      }, time);
-    });
-  };
-  
+
   const onCellClick = (evt) => {
     evt.preventDefault();
     if (evt.target.closest('td')) {
       const cell = evt.target.closest('td');
-      
+
       if (evt.button === 0 && !cell.classList.contains('cross')) {
         if (cell.classList.contains('active')) {
           startAudio('./audio/clear-cell.mp3');
@@ -135,38 +129,10 @@ const initField = (field, image, load = null) => {
         }
         cell.classList.toggle('active');
         updateMatrix(resultMatrix, cell);
-        
+
         if (JSON.stringify(resultMatrix).replaceAll('2', '0') === JSON.stringify(image.matrix)) {
           startAudio('./audio/win.mp3', 2000);
           const time = document.querySelector('#timer').textContent;
-          let records = [];
-          if (localStorage.records) {
-            records = JSON.parse(localStorage.records);
-          }
-          
-          let difficulty;
-          if (image.matrix.length === 5) {
-            difficulty = 'easy';
-          } else if (image.matrix.length === 10) {
-            difficulty = 'medium';
-          } else if (image.matrix.length === 15) {
-            difficulty = 'hard';
-          }
-          records.push({
-            time: time,
-            name: image.name,
-            difficulty: difficulty,
-          });
-          records.sort((a, b) => {
-            if (a.time > b.name) {
-              return 1;
-            }
-            if (a.time < b.time) {
-              return -1;
-            }
-            return 0;
-          });
-          localStorage.setItem('records', JSON.stringify(records));
           showWinScreen(image.matrix, time);
         }
       }
@@ -181,7 +147,7 @@ const initField = (field, image, load = null) => {
       }
     }
   };
-  
+
   field.style.gridTemplateColumns = `repeat(${image.matrix.length}, 1fr)`;
   for (let i = 0; i < image.matrix.length; i++) {
     for (let j = 0; j < image.matrix[i].length; j++) {
@@ -193,7 +159,7 @@ const initField = (field, image, load = null) => {
         } else {
           cell.style.borderBottom = '2px solid #000';
         }
-        
+
       }
       if (resultMatrix[i][j] === 1) {
         cell.classList.add('active');
@@ -232,11 +198,11 @@ const initColumnNums = (container, lines) => {
 
 const initButtons = (image) => {
   const screen = document.querySelector('#game-screen');
-  
+
   const buttonContainer = document.createElement('div');
   buttonContainer.classList.add('btn-wrapper');
   screen.append(buttonContainer);
-  
+
   const saveBtn = document.createElement('button');
   saveBtn.textContent = 'Save';
   saveBtn.addEventListener('click', () => {
@@ -244,7 +210,7 @@ const initButtons = (image) => {
     localStorage.setItem('currentImage', JSON.stringify(resultMatrix));
   });
   buttonContainer.append(saveBtn);
-  
+
   const resetBtn = document.createElement('button');
   resetBtn.textContent = 'Reset';
   resetBtn.addEventListener('click', () => {
@@ -252,14 +218,14 @@ const initButtons = (image) => {
     initGame(image);
   });
   buttonContainer.append(resetBtn);
-  
+
   const menuBtn = document.createElement('button');
   menuBtn.textContent = 'Menu';
   menuBtn.addEventListener('click', () => {
     showMenuScreen();
   });
   buttonContainer.append(menuBtn);
-  
+
   const resultBtn = document.createElement('button');
   resultBtn.textContent = 'Show solution';
   resultBtn.addEventListener('click', () => {
@@ -270,13 +236,13 @@ const initButtons = (image) => {
 
 const initGame = (image, load = null) => {
   clearBody();
-  
+
   const {
     field,
     rowNums,
     columnNums,
   } = initItems(image.name);
-  
+
   initField(field, image, load);
   initRowNums(rowNums, image.matrix);
   initColumnNums(columnNums, getArrayColumns(image.matrix));
