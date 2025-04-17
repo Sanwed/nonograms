@@ -1,20 +1,40 @@
-# Nonograms
-A popular game called Nonograms. The target of this project is to show functional programming skills using vanilla JavaScript
+# Личный проект "Нонограмма"
+Проект, вдохновленный популярной японской головоломкой "Нонограмма". Реализован в качестве личного проекта.
 
-## How to install
-Clone repository
+## Как запустить
+1. Клонировать репозиторий ``https://github.com/Sanwed/nonograms.git``
+2. Проект запускается с помощью локального сервера, например Live Server в VSCode
 
-## Functionality
-- Select the level you want to complete.
-- Check each box by left-clicking and cross it out by right-clicking.
-- Reset the level to start from the beginning.
-- Leave the level and choose another one.
-- Show the solution to the level.
-- Save the current state of each level while you are on it.
-- Load saved level. Works even after closing the game.
-- Select a random level to solve.
-- Change theme by clicking on the appropriate button at top left side.
+## Особенности и функцинал
+- Базовый функционал головоломки "Нонограмма", созданный на основе квадратных матриц.
+- Выбор из подготовленных уровней разной сложности (5x5, 10x10, 15x15).
+- Смена темы с сохранением состояния.
+- Звуковое сопровождение при закрашивании клеточек и завершении уровня, есть возможность его отключить.
+- Реализовано сохранение состояния текущей игры и его загрузка.
+- Возможность создавать собственные уровни разной сложности с возможностью локаольного сохранения.
+- Реализовано 5 экранов – Главный экран, Игровой экран, Правила, Результаты и Создание уровня.
+- Можно запустить случайный уровень любой сложности.
+- Во время игры можно сбросить состояние до начального.
+- Ведется время прохождения каждого уровня.
+- Возможность посмотреть итоговый результат без решения головоломки.
+
+## Используемые технологии
+1. HTML
+2. CSS
+3. JavaScript, ES6, Modules
+4. Функциональное программирование
 
 ## Screenshots
-![image](https://github.com/user-attachments/assets/b3616f99-16d0-4eef-a51e-91308480c839)
+<img width="953" alt="Screenshot 2025-04-17 at 19 49 29" src="https://github.com/user-attachments/assets/87e9d72c-9364-4699-9a39-77ad0175ed1b" />
+<img width="953" alt="Screenshot 2025-04-17 at 19 52 00" src="https://github.com/user-attachments/assets/296883cc-f272-4d84-b782-d74f55e3352a" />
+<img width="953" alt="Screenshot 2025-04-17 at 19 52 16" src="https://github.com/user-attachments/assets/967d6785-4250-491c-bbbf-c416f51eee65" />
+<img width="953" alt="Screenshot 2025-04-17 at 19 53 20" src="https://github.com/user-attachments/assets/e41262d4-3388-4117-ba06-5704284bce3b" />
+<img width="953" alt="Screenshot 2025-04-17 at 19 53 44" src="https://github.com/user-attachments/assets/2b5fe3eb-86a2-48c1-a7ba-bbfb33e67a53" />
+
+
+
+
+
+
+
 
