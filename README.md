@@ -24,7 +24,7 @@
 3. JavaScript, ES6, Modules
 4. Функциональное программирование
 
-## Screenshots
+## Скриншоты
 <img width="953" alt="Screenshot 2025-04-17 at 19 49 29" src="https://github.com/user-attachments/assets/87e9d72c-9364-4699-9a39-77ad0175ed1b" />
 <img width="953" alt="Screenshot 2025-04-17 at 19 52 00" src="https://github.com/user-attachments/assets/296883cc-f272-4d84-b782-d74f55e3352a" />
 <img width="953" alt="Screenshot 2025-04-17 at 19 52 16" src="https://github.com/user-attachments/assets/967d6785-4250-491c-bbbf-c416f51eee65" />
